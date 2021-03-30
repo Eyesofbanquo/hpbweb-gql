@@ -5,6 +5,8 @@
   "main": "index.ts",
   "scripts": {
     "launch": "ts-node ./index.ts",
+    "build-docker": "docker build -t hpbgql -f Dockerfile.",
+    "run-docker": "docker run -d -p 4000:4000 hpbgql",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint . --ext .ts",
     "tsc": "tsc"
