@@ -16,11 +16,11 @@ class BookAPI extends RESTDataSource {
     const searchString =
       `search=${searchTerm}` + options.page ? `&page=${options.page}` : '';
 
-    this.get(`search?${searchString}`);
+    return this.get(`search?${searchString}`);
   }
 
   async getLiveSearchResults(searchTerm: string) {
-    this.get(`search/live?search=${searchTerm}`);
+    return this.get(`search/live?search=${searchTerm}`);
   }
 
   async getTopSearchResults(options: {
@@ -34,6 +34,8 @@ class BookAPI extends RESTDataSource {
         ? `&page=${options.page}`
         : '';
 
-    this.get(`search/top?${searchString}`);
+    return this.get(`search/top?${searchString}`);
   }
 }
+
+export { BookAPI };
