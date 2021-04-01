@@ -14,7 +14,7 @@ module.exports = {
   rules: {
     'max-len': [2, { code: 80, ignoreComments: false }],
     'no-console': 'off',
-    semi: ['error', 'always'],
+    semi: [2, 'always'],
     quotes: ['error', 'single'],
     indent: ['error', 2],
   },
