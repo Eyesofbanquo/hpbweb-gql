@@ -1,4 +1,5 @@
 import { ApolloServer, gql } from 'apollo-server';
+import { Book } from '@eyesofbanquo/hpbtypes';
 
 const types = `
   type Book {

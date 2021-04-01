@@ -14,6 +14,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@eyesofbanquo/hpbtypes": "^1.0.7",
     "apollo-server": "^2.22.2",
     "eslint-config-prettier": "^8.1.0",
     "graphql": "^15.5.0",
