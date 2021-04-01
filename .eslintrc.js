@@ -10,12 +10,13 @@ module.exports = {
     ecmaVersion: 12,
     sourceType: 'module',
   },
-  plugins: ['@typescript-eslint'],
+  plugins: ['@typescript-eslint', 'plugin:import/typescript', 'graphql'],
   rules: {
     'max-len': [2, { code: 80, ignoreComments: false }],
     'no-console': 'off',
     semi: [2, 'always'],
     quotes: ['error', 'single'],
     indent: ['error', 2],
+    'arrow-body-style': 'off',
   },
 };

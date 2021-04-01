@@ -13,14 +13,29 @@ class BookAPI extends RESTDataSource {
 
   async getSearchResults(options: { searchTerm: string; page?: string }) {
     const { searchTerm } = options;
-    const searchString =
-      `search=${searchTerm}` + options.page ? `&page=${options.page}` : '';
 
-    return this.get(`search?${searchString}`);
+    const results = await this.get(`search`, {
+      search: searchTerm,
+      page: options.page ?? '0',
+    });
+
+    const modifiedResults = results.map((result) => {
+      return { gqlType: 'search', ...result };
+    });
+
+    return modifiedResults;
   }
 
   async getLiveSearchResults(searchTerm: string) {
-    return this.get(`search/live?search=${searchTerm}`);
+    const results = await this.get(`search/live`, {
+      search: searchTerm,
+    });
+
+    const modifiedResults = results.map((result) => {
+      return { gqlType: 'live', ...result };
+    });
+
+    return modifiedResults;
   }
 
   async getTopSearchResults(options: {
@@ -29,12 +44,18 @@ class BookAPI extends RESTDataSource {
     author: string;
   }) {
     const { searchTerm, author } = options;
-    const searchString =
-      `search=${searchTerm}` + `by=${author}` + options.page
-        ? `&page=${options.page}`
-        : '';
 
-    return this.get(`search/top?${searchString}`);
+    const results = await this.get(`search/top`, {
+      search: searchTerm,
+      by: author,
+      page: options.page,
+    });
+
+    const modifiedResults = results.map((result) => {
+      return { gqlType: 'top', ...result };
+    });
+
+    return modifiedResults;
   }
 }
 
