@@ -2,11 +2,6 @@ import { ApolloServer, gql } from 'apollo-server';
 import { BookAPI } from './api/book.api';
 
 const types = `
-  type Book {
-    id: ID
-    title: String
-  }
-  
   type LiveSearch {
     bucket: String
     by: [String]
@@ -23,8 +18,7 @@ const types = `
 
 const Query = `
   type Query {
-    books: [Book]
-    bookies(search: String): [LiveSearch]
+    books(search: String): [LiveSearch]
   }
 `;
 
@@ -45,8 +39,7 @@ const books: [{ id: string; title: string }] = [
 
 const resolvers = {
   Query: {
-    books: () => books,
-    bookies: async (parent, args, { dataSources }) => {
+    books: async (parent, args, { dataSources }) => {
       const bookAPI = dataSources.bookAPI as BookAPI;
 
       return bookAPI.getLiveSearchResults(args.search);
