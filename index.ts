@@ -1,5 +1,6 @@
 import { ApolloServer, gql } from 'apollo-server';
 import { BookAPI } from './api/book.api';
+import { Category } from '@eyesofbanquo/hpbtypes';
 
 const types = gql`
   type Category {
@@ -13,11 +14,13 @@ const types = gql`
     rareFind: Boolean
     slug: String
     type: String
+    categories: [Category]
   }
 
   type LiveSearch implements Search {
     gqlType: String
     bucket: String
+    categories: [Category]
     by: [String]
     dedupe: String
     id: Int
@@ -128,7 +131,11 @@ const resolvers = {
 
       return null;
     },
+    categories: (parent, args) => {
+      return parent.categories as [Category];
+    },
   },
+  /* Entry Point */
   Query: {
     live: async (parent, args, { dataSources }) => {
       const bookAPI = dataSources.bookAPI as BookAPI;
@@ -139,6 +146,16 @@ const resolvers = {
       const bookAPI = dataSources.bookAPI as BookAPI;
       return bookAPI.getSearchResults({
         searchTerm: args.input.search,
+        page: args.input.page,
+      });
+    },
+
+    topSearch: async (parent, args, { dataSources }) => {
+      const bookAPI = dataSources.bookAPI as BookAPI;
+
+      return bookAPI.getTopSearchResults({
+        searchTerm: args.input.search,
+        author: args.input.author,
         page: args.input.page,
       });
     },
