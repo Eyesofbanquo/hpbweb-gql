@@ -1,0 +1,19 @@
+# serverless.yml
+
+service: hpbweb-gql2
+frameworkVersion: '2'
+provider:
+  name: aws
+  runtime: nodejs12.x
+functions:
+  graphql:
+    handler: ./dist/index.handler
+    events:
+      - http:
+          path: graphql
+          method: post
+          cors: true
+      - http:
+          path: graphql
+          method: get
+          cors: true

@@ -4,8 +4,10 @@
     "module": "CommonJS",
     "strict": false,
     "moduleResolution": "node",
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "declaration": true,
+    "outDir": "./dist"
   },
-  "include": ["index.ts"],
+  "include": ["index.ts", "api/**/*.ts"],
   "exclude": ["node_modules"]
 }

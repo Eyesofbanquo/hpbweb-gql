@@ -1,13 +1,25 @@
-FROM node:15-alpine
+FROM public.ecr.aws/lambda/nodejs:12
 
-WORKDIR /app
+# WORKDIR /app
 
-RUN npm install typescript
+# RUN npm install typescript
 
-COPY ["package.json", "."]
+# COPY ["package.json", "."]
+
+# RUN npm install
+
+# ADD ["index.ts", "tsconfig.json", "./"]
+
+# CMD ["npm", "run", "launch"]
+
+COPY ["package.json", "index.ts", "tsconfig.json", ".npmrc", "./"]
+
+COPY ["api/", "./api"]
+
+RUN npm install -g typescript
 
 RUN npm install
 
-ADD ["index.ts", "tsconfig.json", "./"]
+RUN npm run tsc
 
-CMD ["npm", "run", "launch"]
+CMD ["./dist/index.handler"]

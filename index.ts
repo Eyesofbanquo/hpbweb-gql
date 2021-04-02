@@ -1,4 +1,4 @@
-import { ApolloServer, gql } from 'apollo-server';
+import { ApolloServer, gql } from 'apollo-server-lambda';
 import { BookAPI } from './api/book.api';
 import { Category } from '@eyesofbanquo/hpbtypes';
 
@@ -165,12 +165,24 @@ const resolvers = {
 const server = new ApolloServer({
   typeDefs,
   resolvers,
+  context: ({ event, context }) => ({
+    headers: event.headers,
+    functionName: context.functionName,
+    event,
+    context,
+  }),
   dataSources: () => {
     return {
       bookAPI: new BookAPI(),
     };
   },
 });
-server.listen().then(({ url }) => {
-  console.log(url);
+
+const handler = server.createHandler({
+  cors: {
+    origin: true,
+    credentials: true,
+  },
 });
+
+export { handler };

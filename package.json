@@ -17,6 +17,7 @@
     "@eyesofbanquo/hpbtypes": "^1.0.7",
     "apollo-datasource-rest": "^0.11.0",
     "apollo-server": "^2.22.2",
+    "apollo-server-lambda": "^2.22.2",
     "eslint-config-prettier": "^8.1.0",
     "eslint-plugin-graphql": "^4.0.0",
     "graphql": "^15.5.0",
